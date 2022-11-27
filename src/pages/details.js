@@ -1,19 +1,13 @@
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-
-class Detail2 extends React.Component {
-  componentDidMount() {
-    // 컴포넌트 mount시 실행 코드
-  }
-  componentDidUpdate() {
-    // 컴포넌트 update시 실행코드
-  }
-  componentWillUnmount() {
-    // 컴포넌트 unmount시 실행코드
-  }
-}
+import { useEffect, useState } from 'react';
 
 function Detail({ shoes }) {
+  useEffect(() => {
+    console.log('hello!');
+  });
+
+  let [count, setCount] = useState(0);
+
   let { num } = useParams();
   let theProduct = shoes.find((shoe) => shoe.id === num - 1);
 
@@ -27,6 +21,11 @@ function Detail({ shoes }) {
   return (
     <>
       <div className="container">
+        <button
+          onClick={() => {
+            setCount(count + 1);
+          }}
+        ></button>
         <div className="row">
           <div className="col-md-6">
             <img
