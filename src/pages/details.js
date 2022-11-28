@@ -5,14 +5,9 @@ function Detail({ shoes }) {
   let [alert, setAlert] = useState(1);
   let { num } = useParams();
   let theProduct = shoes.find((shoe) => shoe.id === num - 1);
-  let [count, setCount] = useState(0);
+  let [input, setInput] = useState('');
+  let [warn, setWarn] = useState(0);
 
-  // shoes.map((shoe) => {
-  //   if (num - 1 === shoe.id) {
-  //     setTheProduct(shoe);
-  //     console.log(theProduct);
-  //   }
-  // });
   useEffect(() => {
     let a = setTimeout(() => {
       setAlert(0);
@@ -22,17 +17,14 @@ function Detail({ shoes }) {
       console.log(1);
       clearTimeout(a); // useEffect 실행하기 전에, 이전에 만들었던 타이머는 지워주세요~!
     };
-  });
+  }, []);
+
+  useEffect(() => {
+    setWarn(isNaN(input) ? true : false);
+  }, [input]); // useState로만 했을때보다 반응속도가 빠르다..!
 
   return (
     <>
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        count
-      </button>
       <div className="container">
         {alert ? (
           <div className="alert alert-warning">2초 이내 구매시 할인</div>
@@ -46,6 +38,16 @@ function Detail({ shoes }) {
             />
           </div>
           <div className="col-md-6">
+            {warn ? (
+              <div className="alert alert-warning">only numbers!</div>
+            ) : null}
+            <input
+              placeholder="how many?"
+              onChange={(e) => {
+                setInput(e.target.value);
+              }}
+              value={input}
+            />
             <h4 className="pt-5">{theProduct.title}</h4>
             <p>{theProduct.content}</p>
             <p>{theProduct.price}</p>
