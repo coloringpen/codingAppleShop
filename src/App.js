@@ -10,7 +10,7 @@ import About from './pages/about';
 import Event from './pages/event';
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   return (
     <div className="App">
@@ -53,7 +53,7 @@ function App() {
       <Link to="/detail">details</Link> */}
 
       <Routes>
-        <Route path="/" element={<Main shoes={shoes} />} />
+        <Route path="/" element={<Main shoes={shoes} setShoes={setShoes} />} />
         <Route path="/detail/:num" element={<Detail shoes={shoes} />} />
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>These are the members</div>} />
