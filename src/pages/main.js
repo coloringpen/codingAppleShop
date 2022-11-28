@@ -3,13 +3,14 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import bg from '../img/bg.png'; // 이렇게 꼭.. 끝까지 써야한다.. 파일명..
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function ProductCard({ shoesItem, index }) {
   return (
     <Col>
       <img
         alt="product"
-        src={process.env.PUBLIC_URL + `./shoes${index + 1}.jpg`}
+        src={`https://codingapple1.github.io/shop/shoes${index + 1}.jpg`}
         width="80%"
       />
       <h4>{shoesItem.title}</h4>
@@ -28,6 +29,10 @@ function ProductCard({ shoesItem, index }) {
 }
 
 function Main({ shoes, setShoes }) {
+  let [serverCount, setServerCount] = useState(2);
+  let [pageButton, setPageButton] = useState(true);
+  let [loading, setLoading] = useState(false);
+
   return (
     <>
       <div
@@ -41,22 +46,33 @@ function Main({ shoes, setShoes }) {
           })}
         </Row>
       </Container>
-      <button
-        onClick={() => {
-          axios
-            .get('https://codingapple1.github.io/shop/data2.json')
-            .then((res) => {
-              const copyShoes = [...shoes];
-              const newList = copyShoes.concat(res.data);
-              setShoes(newList);
-            })
-            .catch((res) => {
-              console.log(res);
-            });
-        }}
-      >
-        btn
-      </button>
+      {loading ? <div>on loading...</div> : null}
+      {pageButton ? (
+        <button
+          onClick={() => {
+            setServerCount(serverCount + 1);
+            setLoading(true);
+            axios
+              .get(
+                `https://codingapple1.github.io/shop/data${serverCount}.json`
+              )
+              .then((res) => {
+                const copyShoes = [...shoes, ...res.data];
+                setShoes(copyShoes);
+                setLoading(false);
+              })
+              .catch((res) => {
+                console.log(res);
+                setPageButton(false);
+                setLoading(false);
+              });
+          }}
+        >
+          btn
+        </button>
+      ) : (
+        <div>no products anymore!</div>
+      )}
     </>
   );
 }
