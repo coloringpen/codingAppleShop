@@ -21,4 +21,6 @@ let data = [
   },
 ];
 
-export default data;
+let tabContents = ['content1', 'content2', 'content3'];
+
+export { data, tabContents };

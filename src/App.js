@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import data from './data';
+import { data } from './data';
 import Main from './pages/main';
 import Detail from './pages/details';
 import About from './pages/about';

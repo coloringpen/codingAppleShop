@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import bg from '../img/bg.png'; // 이렇게 꼭.. 끝까지 써야한다.. 파일명..
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function ProductCard({ shoesItem, index }) {
   return (
