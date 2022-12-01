@@ -1,10 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { tabContents } from '../data';
 
 function TabModal(props) {
-  return <div>{tabContents[props.tab]}</div>;
+  if (props.tab === 0) {
+    return <div> content 0 </div>;
+  } else if (props.tab === 1) {
+    return <div> content 1 </div>;
+  } else if (props.tab === 2) {
+    return <div> content 2 </div>;
+  }
 }
 
 function Detail({ shoes }) {
