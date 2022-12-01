@@ -3,13 +3,8 @@ import { useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 
 function TabModal(props) {
-  if (props.tab === 0) {
-    return <div> content 0 </div>;
-  } else if (props.tab === 1) {
-    return <div> content 1 </div>;
-  } else if (props.tab === 2) {
-    return <div> content 2 </div>;
-  }
+  // 배열 옆에 바로 대괄호를 써서 인덱스에 해당하는 요소를 뽑아올 수 있다
+  return [<div> 1 </div>, <div> 2 </div>, <div> 3 </div>][props.tab];
 }
 
 function Detail({ shoes }) {
