@@ -1,10 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
+import { tabContents } from '../data';
 
 function TabModal(props) {
-  // 배열 옆에 바로 대괄호를 써서 인덱스에 해당하는 요소를 뽑아올 수 있다
-  return [<div> 1 </div>, <div> 2 </div>, <div> 3 </div>][props.tab];
+  return (
+    <div className={props.transition[props.tab] ? 'start end' : 'start'}>
+      <div>{tabContents[props.tab]}</div>
+    </div>
+  );
 }
 
 function Detail({ shoes }) {
@@ -14,9 +18,22 @@ function Detail({ shoes }) {
   let [input, setInput] = useState('');
   let [warn, setWarn] = useState(0);
   let [tab, setTab] = useState(0);
+  let [transition, setTransition] = useState([false, false, false]);
 
   /** tab 내용 바꾸기 */
   function tabChange(num) {
+    const copyTrans = [...transition];
+    const newTrans = [
+      ...copyTrans.map((item, index) => {
+        if (index !== num) {
+          return false;
+        } else if (index === num) {
+          return true;
+        }
+      }),
+    ];
+    console.log(newTrans);
+    setTransition(newTrans);
     setTab(num);
   }
 
@@ -99,7 +116,7 @@ function Detail({ shoes }) {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabModal tab={tab} />
+      <TabModal tab={tab} transition={transition} />
     </div>
   );
 }
