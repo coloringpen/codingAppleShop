@@ -31,22 +31,10 @@ function Detail({ shoes }) {
   let [warn, setWarn] = useState(0);
   let [tab, setTab] = useState(0);
   let [detailOpacity, setDetailOpacity] = useState('');
-  // let [transition, setTransition] = useState([false, false, false]);
+  let [stock, setStock] = useState([10, 11, 12]);
 
   /** tab 내용 바꾸기 */
   function tabChange(num) {
-    // const copyTrans = [...transition];
-    // const newTrans = [
-    //   ...copyTrans.map((item, index) => {
-    //     if (index !== num) {
-    //       return false;
-    //     } else if (index === num) {
-    //       return true;
-    //     }
-    //   }),
-    // ];
-    // console.log(newTrans);
-    // setTransition(newTrans);
     setTab(num);
   }
 
