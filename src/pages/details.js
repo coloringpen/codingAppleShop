@@ -4,8 +4,20 @@ import Nav from 'react-bootstrap/Nav';
 import { tabContents } from '../data';
 
 function TabModal(props) {
+  let [fade, setFade] = useState('');
+
+  useEffect(() => {
+    let a = setTimeout(() => {
+      setFade('end');
+    }, 10);
+    return () => {
+      clearTimeout(a);
+      setFade('');
+    };
+  }, [props.tab]);
+
   return (
-    <div className={props.transition[props.tab] ? 'start end' : 'start'}>
+    <div className={'start ' + fade}>
       <div>{tabContents[props.tab]}</div>
     </div>
   );
@@ -18,22 +30,23 @@ function Detail({ shoes }) {
   let [input, setInput] = useState('');
   let [warn, setWarn] = useState(0);
   let [tab, setTab] = useState(0);
-  let [transition, setTransition] = useState([false, false, false]);
+  let [detailOpacity, setDetailOpacity] = useState('');
+  // let [transition, setTransition] = useState([false, false, false]);
 
   /** tab 내용 바꾸기 */
   function tabChange(num) {
-    const copyTrans = [...transition];
-    const newTrans = [
-      ...copyTrans.map((item, index) => {
-        if (index !== num) {
-          return false;
-        } else if (index === num) {
-          return true;
-        }
-      }),
-    ];
-    console.log(newTrans);
-    setTransition(newTrans);
+    // const copyTrans = [...transition];
+    // const newTrans = [
+    //   ...copyTrans.map((item, index) => {
+    //     if (index !== num) {
+    //       return false;
+    //     } else if (index === num) {
+    //       return true;
+    //     }
+    //   }),
+    // ];
+    // console.log(newTrans);
+    // setTransition(newTrans);
     setTab(num);
   }
 
@@ -54,8 +67,19 @@ function Detail({ shoes }) {
     setWarn(isNaN(input) ? true : false);
   }, [input]); // useState로만 했을때보다 반응속도가 빠르다..!
 
+  /** 디테일 페이지 로드시 오퍼시티 변경 */
+  useEffect(() => {
+    let a = setTimeout(() => {
+      setDetailOpacity('end');
+    }, 10);
+    return () => {
+      clearTimeout(a);
+      setDetailOpacity('');
+    };
+  }, []);
+
   return (
-    <div className="container">
+    <div className={'container start ' + detailOpacity}>
       {alert ? (
         <div className="alert alert-warning">2초 이내 구매시 할인</div>
       ) : null}
@@ -116,7 +140,7 @@ function Detail({ shoes }) {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabModal tab={tab} transition={transition} />
+      <TabModal tab={tab} />
     </div>
   );
 }
