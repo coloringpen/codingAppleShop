@@ -4,13 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />{' '}
+        {/** 이제 App 내부의 컴포넌트들은 전부 store.js에 있던 state 전부 사용가능 */}
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

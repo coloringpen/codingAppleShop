@@ -8,6 +8,7 @@ import Main from './pages/main';
 import Detail from './pages/details';
 import About from './pages/about';
 import Event from './pages/event';
+import Cart from './pages/cart';
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -46,6 +47,13 @@ function App() {
             >
               Event
             </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate('/cart');
+              }}
+            >
+              Cart
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -55,6 +63,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main shoes={shoes} setShoes={setShoes} />} />
         <Route path="/detail/:num" element={<Detail shoes={shoes} />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>These are the members</div>} />
           <Route path="location" />
