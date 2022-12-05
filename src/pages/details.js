@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { tabContents } from '../data';
+import { useDispatch } from 'react-redux';
+import { addItems } from '../store';
 
 function TabModal(props) {
   let [fade, setFade] = useState('');
@@ -31,7 +33,7 @@ function Detail({ shoes }) {
   let [warn, setWarn] = useState(0);
   let [tab, setTab] = useState(0);
   let [detailOpacity, setDetailOpacity] = useState('');
-  let [stock, setStock] = useState([10, 11, 12]);
+  let dispatch = useDispatch();
 
   /** tab 내용 바꾸기 */
   function tabChange(num) {
@@ -66,6 +68,16 @@ function Detail({ shoes }) {
     };
   }, []);
 
+  /** 장바구니에 추가 */
+  let addCart = () => {
+    const newItem = {
+      id: theProduct['id'],
+      name: theProduct['title'],
+      count: 1,
+    };
+    dispatch(addItems(newItem));
+  };
+
   return (
     <div className={'container start ' + detailOpacity}>
       {alert ? (
@@ -93,7 +105,14 @@ function Detail({ shoes }) {
           <h4 className="pt-5">{theProduct.title}</h4>
           <p>{theProduct.content}</p>
           <p>{theProduct.price}</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button
+            onClick={() => {
+              addCart();
+            }}
+            className="btn btn-danger"
+          >
+            주문하기
+          </button>
         </div>
       </div>
       <Nav variant="tabs" defaultActiveKey="link0">
