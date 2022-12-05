@@ -1,6 +1,6 @@
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeName, changeItemNum } from '../store';
+import { changeName, changeItemNum, changeAge } from '../store';
 
 function Cart() {
   let theStates = useSelector((state) => {
@@ -11,7 +11,15 @@ function Cart() {
 
   return (
     <>
-      <div>{theStates.user}'s cart</div>
+      <div>{theStates.user.name}'s cart</div>
+      <div>kim's age is {theStates.user.age}</div>
+      <button
+        onClick={() => {
+          dispatch(changeAge());
+        }}
+      >
+        age +1
+      </button>
       <div>
         <Table striped bordered hover>
           <thead>
