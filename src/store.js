@@ -27,9 +27,9 @@ let cartContents = createSlice({
     { id: 2, name: 'Grey Yordan', count: 1 },
   ],
   reducers: {
-    changeItemNum(state, item) {
+    changeItemNum(state, id) {
       let newState = state.map((i) => {
-        if (i.id === item.id) {
+        if (i.id === id.payload) {
           i.count += 1;
           return i;
         } else {

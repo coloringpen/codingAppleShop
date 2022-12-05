@@ -40,7 +40,7 @@ function Cart() {
                   <td>
                     <button
                       onClick={() => {
-                        dispatch(changeItemNum());
+                        dispatch(changeItemNum(item.id));
                       }}
                     >
                       +
